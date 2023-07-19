@@ -28,7 +28,7 @@ public class UserEntity {
     public UserEntity(UserModel user) {
         this.id = user.getId();
         this.username = user.getUsername();
-        this.password = user.getPassword();
+        setPassword(user.getPassword());
         this.email = user.getEmail();
         this.role = user.getRole();
         this.createdAt = user.getCreatedAt();

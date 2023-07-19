@@ -1,6 +1,7 @@
 package com.dev.mercadolivre.model;
 
 import com.dev.mercadolivre.model.validations.FutureDate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -23,7 +24,7 @@ public class UserModel {
 
     public UserModel(String username, String password, String email, LocalDateTime createdAt, String role) {
         this.username = username;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.email = email;
         this.createdAt = createdAt;
         this.role = role;
