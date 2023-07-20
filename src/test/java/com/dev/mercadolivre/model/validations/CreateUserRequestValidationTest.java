@@ -15,7 +15,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class ContactValidationTest {
+public class CreateUserRequestValidationTest {
 
     private Validator validator;
 
@@ -52,6 +52,8 @@ public class ContactValidationTest {
         assertEquals(3, violations.size());
 
     }
+
+
 
 
 
