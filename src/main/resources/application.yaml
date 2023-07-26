@@ -19,4 +19,4 @@ spring:
     user: postgres
     password: postgres
     schemas: postgres
-    locations: classpath:db/migrations
+    locations: classpath:/db/migrations

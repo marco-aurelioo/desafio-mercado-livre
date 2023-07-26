@@ -2,7 +2,7 @@ package com.dev.mercadolivre.service;
 
 import com.dev.mercadolivre.model.UserModel;
 import com.dev.mercadolivre.repository.entity.UserEntity;
-import com.dev.mercadolivre.repository.entity.UserRepository;
+import com.dev.mercadolivre.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
