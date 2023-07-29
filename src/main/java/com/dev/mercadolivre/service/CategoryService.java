@@ -19,7 +19,7 @@ public class CategoryService {
 
     private void canInserirCategoria(CategoryModel categoryModel) {
         categoryRepository.findByName(categoryModel.getName()).ifPresent(c -> {
-            throw new RuntimeException("Categoria já cadastrada");
+            throw new IllegalArgumentException("Categoria já cadastrada");
         });
     }
 

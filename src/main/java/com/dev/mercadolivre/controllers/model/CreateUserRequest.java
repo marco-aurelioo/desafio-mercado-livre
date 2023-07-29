@@ -1,4 +1,4 @@
-package com.dev.mercadolivre.controllers;
+package com.dev.mercadolivre.controllers.model;
 
 import com.dev.mercadolivre.model.UserModel;
 

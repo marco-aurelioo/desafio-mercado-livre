@@ -1,5 +1,6 @@
 package com.dev.mercadolivre.controllers;
 
+import com.dev.mercadolivre.controllers.model.CategoryRequest;
 import com.dev.mercadolivre.model.CategoryModel;
 import com.dev.mercadolivre.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
     @PostMapping
     public ResponseEntity<CategoryModel> createCategory(@RequestBody CategoryRequest categoryRequest) {
         return ResponseEntity.ok(categoryService.createCategory(categoryRequest.toModel()));
     }
+
 }

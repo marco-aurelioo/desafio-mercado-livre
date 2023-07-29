@@ -5,7 +5,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import com.dev.mercadolivre.controllers.CreateUserRequest;
+import com.dev.mercadolivre.controllers.model.CreateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

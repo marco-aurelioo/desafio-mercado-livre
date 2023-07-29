@@ -1,5 +1,6 @@
 package com.dev.mercadolivre.controllers;
 
+import com.dev.mercadolivre.controllers.model.CreateUserRequest;
 import com.dev.mercadolivre.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

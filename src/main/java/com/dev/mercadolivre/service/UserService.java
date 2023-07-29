@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import javax.management.InvalidAttributeValueException;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 @Service
@@ -23,7 +25,7 @@ public class UserService {
 
     private void cantSaveUserWithDuplicateEmail(String email){
         userRepository.findByEmail(email).ifPresent(u -> {
-            throw new RuntimeException("User already exists");
+                throw new IllegalArgumentException("User already exists");
         });
     }
 

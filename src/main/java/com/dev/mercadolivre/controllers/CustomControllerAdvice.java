@@ -34,4 +34,11 @@ public class CustomControllerAdvice {
         return new ResponseEntity<Map<String,String>>(erros, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String,String>> constraintIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        Map erros = new HashMap<String,String>();
+        erros.put("mensagem", ex.getMessage());
+        return new ResponseEntity<Map<String,String>>(erros, HttpStatus.BAD_REQUEST);
+    }
+
 }

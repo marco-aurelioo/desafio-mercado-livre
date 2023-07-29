@@ -17,4 +17,5 @@ public class FutureDateValidator implements ConstraintValidator<FutureDate, Loca
         LocalDateTime now = LocalDateTime.now();
         return value.isEqual(now) || value.isBefore(now);
     }
+
 }
