@@ -23,4 +23,9 @@ public class CategoryService {
         });
     }
 
+    public CategoryModel findCategory(Integer id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada"))
+                .toModel(categoryRepository);
+    }
 }

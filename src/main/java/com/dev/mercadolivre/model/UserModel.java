@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class UserModel {
-    private long id;
+    private Integer id;
     @NotBlank
     private String username;
     @NotBlank
@@ -30,11 +30,11 @@ public class UserModel {
         this.role = role;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
