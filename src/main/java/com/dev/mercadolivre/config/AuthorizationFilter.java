@@ -2,6 +2,7 @@ package com.dev.mercadolivre.config;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -13,9 +14,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class AuthorizationFilter extends BasicAuthenticationFilter {
+
+    Logger log = Logger.getLogger(AuthorizationFilter.class.getName());
 
     public AuthorizationFilter(AuthenticationManager authenticationManager,
                                UserDetailsService userDetailsService,
@@ -33,16 +37,17 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                                  HttpServletResponse response,
                                  FilterChain chain) throws IOException, ServletException {
 
-        String requestTokenHeader = request.getHeader("Authorization");
-        if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer ")) {
-            UsernamePasswordAuthenticationToken authentication = getUserAuthentication(requestTokenHeader);
+        String authorizationHeader = request.getHeader("Authorization");
+        log.info("doFilterInternal: " + authorizationHeader);
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer")){
+            UsernamePasswordAuthenticationToken auth = getUserAuthentication(authorizationHeader.substring(7));
+            SecurityContextHolder.getContext().setAuthentication(auth);
         }
-
-        super.doFilterInternal(request, response, chain);
-
+        chain.doFilter(request,response);
     }
 
     private UsernamePasswordAuthenticationToken getUserAuthentication(String requestTokenHeader) throws AuthenticationException {
+        log.info("getUserAuthentication: " + requestTokenHeader);
         if(!jwtUtils.validateToken(requestTokenHeader)){
             throw new RuntimeException("Token inválido");
         }

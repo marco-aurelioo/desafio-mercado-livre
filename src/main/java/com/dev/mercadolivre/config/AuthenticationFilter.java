@@ -11,9 +11,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
 
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+
+    Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
 
     public AuthenticationFilter(
             AuthenticationManager authenticationManager,
@@ -50,8 +54,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             FilterChain chain,
             Authentication authResult) {
         Integer id = (Integer) authResult.getPrincipal();
-        String token = jwtUtils.generateToken(id);
-        response.addHeader("Authorization", "Bearer " + token);
+        try{
+            String token = jwtUtils.generateToken(id);
+            log.info("successfulAuthentication "+token);
+            response.addHeader("Authorization", "Bearer " + token);
+        }catch( Exception ex){
+            throw  new BadCredentialsException(ex.getMessage());
+        }
     }
 
 }
