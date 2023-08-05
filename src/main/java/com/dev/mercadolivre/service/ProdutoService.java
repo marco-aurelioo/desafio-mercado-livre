@@ -10,6 +10,11 @@ public class ProdutoService {
 
     Logger logger = Logger.getLogger(ProdutoService.class.getName());
 
+    ProdutoService() {
+
+    }
+
+
     public void createProduto(UserModel user, String produto) {
         logger.info("Criando produto " + produto + " para o usuário " + user.getUsername());
     }
