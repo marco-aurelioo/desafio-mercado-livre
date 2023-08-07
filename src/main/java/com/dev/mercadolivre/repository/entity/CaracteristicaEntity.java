@@ -46,4 +46,6 @@ public class CaracteristicaEntity {
     public void setValor(String valor) {
         this.valor = valor;
     }
+
 }
+

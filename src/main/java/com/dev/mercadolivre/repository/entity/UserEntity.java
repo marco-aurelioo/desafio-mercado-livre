@@ -103,4 +103,7 @@ public class UserEntity {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public UserModel toModel() {
+        return new UserModel( this.username, this.email, this.role);
+    }
 }

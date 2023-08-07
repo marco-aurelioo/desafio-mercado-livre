@@ -1,5 +1,7 @@
 package com.dev.mercadolivre.repository.entity;
 
+import com.dev.mercadolivre.model.GrupoCaracteristicaModel;
+
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
@@ -50,5 +52,16 @@ public class GrupoCaracteristicaEntity {
 
     public void setCaracteristicas(List<CaracteristicaEntity> caracteristicas) {
         this.caracteristicas = caracteristicas;
+    }
+
+    public GrupoCaracteristicaModel toModel() {
+        GrupoCaracteristicaModel grupo = new GrupoCaracteristicaModel();
+        grupo.setGrupoCaracteristicas(this.grupoCaracteristicas);
+        HashMap<String,String> caracteristicas = new HashMap<>();
+        for(CaracteristicaEntity caracteristica : this.caracteristicas) {
+            caracteristicas.put(caracteristica.getChave(), caracteristica.getValor());
+        }
+        grupo.setCaracteristicas(caracteristicas);
+        return grupo;
     }
 }

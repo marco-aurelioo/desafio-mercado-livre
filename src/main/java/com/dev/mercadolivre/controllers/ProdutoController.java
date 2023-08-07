@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/produto")
-//@Validated
+@Validated
 public class ProdutoController {
 
     private ProdutoService  produtoService;
@@ -26,9 +26,9 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> cadastrarProduto(@RequestBody ProdutoRequest request,
+    public ResponseEntity<Void> cadastrarProduto(@Valid @RequestBody ProdutoRequest request,
                                                  @AuthenticationPrincipal UserDetails user ){
-        produtoService.createProduto(null,request.getNome());
+        produtoService.createProduto(request.toModel(user));
         return ResponseEntity.ok().build();
     }
 

@@ -1,11 +1,17 @@
 package com.dev.mercadolivre.model;
 
+import com.dev.mercadolivre.repository.CategoryRepository;
+import com.dev.mercadolivre.repository.UserRepository;
+import com.dev.mercadolivre.repository.entity.ProdutoEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProdutoModel {
 
+    private Integer id;
     private String nome;
     private BigDecimal valor;
     private Integer quantidadeDisponivel;
@@ -13,8 +19,9 @@ public class ProdutoModel {
     private CategoryModel categoria;
     private String descricao;
     private LocalDateTime dataCadastro;
+    private UserModel user;
 
-    public ProdutoModel(String nome, BigDecimal valor, Integer quantidadeDisponivel, List<GrupoCaracteristicaModel> caracteristicas, CategoryModel categoria, String descricao, LocalDateTime dataCadastro) {
+    public ProdutoModel(String userName, String nome, BigDecimal valor, Integer quantidadeDisponivel, List<GrupoCaracteristicaModel> caracteristicas, CategoryModel categoria, String descricao, LocalDateTime dataCadastro) {
         this.nome = nome;
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
@@ -22,7 +29,9 @@ public class ProdutoModel {
         this.categoria = categoria;
         this.descricao = descricao;
         this.dataCadastro = dataCadastro;
+        this.user = new UserModel(userName);
     }
+
 
     public String getNome() {
         return nome;
@@ -78,5 +87,20 @@ public class ProdutoModel {
 
     public void setDataCadastro(LocalDateTime dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    public ProdutoEntity toEntity( UserRepository  userRepository, CategoryRepository categoryRepository) {
+        return new ProdutoEntity(
+                null,
+                this.nome,
+                this.valor,
+                this.quantidadeDisponivel,
+                this.caracteristicas.stream().map(
+                        GrupoCaracteristicaModel::toEntity
+                ).collect(Collectors.toList()),
+                categoryRepository.findById(this.categoria.getId()).orElse(null),
+                userRepository.findByUsername(this.user.getUsername()),
+                this.descricao
+        );
     }
 }

@@ -1,12 +1,18 @@
 package com.dev.mercadolivre.controllers.model;
 
+import com.dev.mercadolivre.model.CategoryModel;
+import com.dev.mercadolivre.model.ProdutoModel;
+import com.dev.mercadolivre.model.UserModel;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProdutoRequest {
@@ -73,11 +79,22 @@ public class ProdutoRequest {
         this.descricao = descricao;
     }
 
-    public ProdutoRequest(String nome, BigDecimal valor, Integer quantidadeDisponivel, List<GrupoCaracteristica> caracteristicas, String descricao) {
-        this.nome = nome;
-        this.valor = valor;
-        this.quantidadeDisponivel = quantidadeDisponivel;
-        this.caracteristicas = caracteristicas;
-        this.descricao = descricao;
+    public ProdutoModel toModel(UserDetails user) {
+        return new ProdutoModel(
+                user.getUsername(),
+                this.nome,
+                this.valor,
+                this.quantidadeDisponivel,
+                this.caracteristicas.stream().map(GrupoCaracteristica::toModel).toList(),
+                new CategoryModel(this.categoriaId),
+                descricao,
+                null);
     }
+
+    public ProdutoModel toModel(UserDetails user, LocalDateTime dataCadastro) {
+        ProdutoModel model = this.toModel(user);
+        model.setDataCadastro(dataCadastro);
+        return model;
+    }
+
 }

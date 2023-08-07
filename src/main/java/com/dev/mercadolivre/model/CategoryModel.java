@@ -20,6 +20,10 @@ public class CategoryModel {
         this.name = name;
     }
 
+    public CategoryModel(Integer id) {
+        this.id = id;
+    }
+
     public CategoryModel getParentCategory() {
         return parentCategory;
     }

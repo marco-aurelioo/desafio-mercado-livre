@@ -1,5 +1,7 @@
 package com.dev.mercadolivre.controllers.model;
 
+import com.dev.mercadolivre.model.GrupoCaracteristicaModel;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
@@ -30,5 +32,9 @@ public class GrupoCaracteristica {
     public GrupoCaracteristica(String grupoCaracteristicas, HashMap<String, String> caracteristicas) {
         this.grupoCaracteristicas = grupoCaracteristicas;
         this.caracteristicas = caracteristicas;
+    }
+
+    public GrupoCaracteristicaModel toModel() {
+        return new GrupoCaracteristicaModel(grupoCaracteristicas, caracteristicas);
     }
 }

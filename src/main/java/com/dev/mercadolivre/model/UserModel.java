@@ -22,11 +22,20 @@ public class UserModel {
     @FutureDate
     private LocalDateTime createdAt;
 
+    public UserModel(String userName) {
+        this.username = userName;
+    }
     public UserModel(String username, String password, String email, LocalDateTime createdAt, String role) {
         this.username = username;
         this.password = new BCryptPasswordEncoder().encode(password);
         this.email = email;
         this.createdAt = createdAt;
+        this.role = role;
+    }
+
+    public UserModel(String username, String email, String role) {
+        this.username = username;
+        this.email = email;
         this.role = role;
     }
 

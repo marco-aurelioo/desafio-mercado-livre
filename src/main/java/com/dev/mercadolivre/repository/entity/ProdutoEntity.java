@@ -1,7 +1,7 @@
 package com.dev.mercadolivre.repository.entity;
 
-import com.dev.mercadolivre.model.CategoryModel;
-import com.dev.mercadolivre.model.GrupoCaracteristicaModel;
+import com.dev.mercadolivre.model.ProdutoModel;
+import com.dev.mercadolivre.repository.CategoryRepository;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -9,25 +9,27 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name="produto")
+@Table(name="produtos")
 public class ProdutoEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private BigDecimal valor;
     private Integer quantidadeDisponivel;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<GrupoCaracteristicaEntity> caracteristicas;
 
     @ManyToOne
     private CategoryEntity categoria;
 
     @ManyToOne
-    private UserEntity user;
+    private UserEntity usuario;
 
     private String descricao;
 
@@ -48,7 +50,7 @@ public class ProdutoEntity {
         this.quantidadeDisponivel = quantidadeDisponivel;
         this.caracteristicas = caracteristicas;
         this.categoria = categoria;
-        this.user = user;
+        this.usuario = user;
         this.descricao = descricao;
     }
 
@@ -100,12 +102,12 @@ public class ProdutoEntity {
         this.categoria = categoria;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getUsuario() {
+        return usuario;
     }
 
-    public void setUser(UserEntity user) {
-        this.user = user;
+    public void setUssuario(UserEntity user) {
+        this.usuario = user;
     }
 
     public String getDescricao() {
@@ -141,6 +143,20 @@ public class ProdutoEntity {
     private void prePersistFunction(){
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public ProdutoModel toModel(CategoryRepository categoryRepository) {
+        return new ProdutoModel(
+                this.usuario.getUsername(),
+                this.nome,
+                this.valor,
+                this.quantidadeDisponivel,
+                this.caracteristicas.stream()
+                        .map(entity -> entity.toModel())
+                        .collect(Collectors.toList()),
+                this.categoria.toModel(categoryRepository),
+                this.descricao,
+                this.createdAt);
     }
 
 }

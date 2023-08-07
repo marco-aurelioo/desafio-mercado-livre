@@ -18,24 +18,18 @@ CREATE TABLE grupo_caracteristicas (
 );
 
 
-CREATE TABLE produto_grupo_caracteristicas (
-    produto_id INT,
-    grupo_caracteristica_id INT,
-    PRIMARY KEY (produto_id, grupo_caracteristica_id),
-    FOREIGN KEY (produto_id) REFERENCES produtos (id),
-    FOREIGN KEY (grupo_caracteristica_id) REFERENCES grupo_caracteristicas (id)
+CREATE TABLE produtos_caracteristicas (
+    produto_entity_id INT,
+    caracteristicas_id INT,
+    PRIMARY KEY (produto_entity_id, caracteristicas_id),
+    FOREIGN KEY (produto_entity_id) REFERENCES produtos (id),
+    FOREIGN KEY (caracteristicas_id) REFERENCES grupo_caracteristicas (id)
 );
 
-CREATE TABLE grupo_caracteristica (
-     id SERIAL PRIMARY KEY ,
-    grupo_caracteristicas VARCHAR(255)
-);
-
--- Tabela CaracteristicaEntity
 CREATE TABLE caracteristicas (
     id SERIAL PRIMARY KEY ,
     chave VARCHAR(255),
     valor VARCHAR(255),
     grupo_caracteristica_id INT,
-    FOREIGN KEY (grupo_caracteristica_id) REFERENCES grupo_caracteristica(id)
+    FOREIGN KEY (grupo_caracteristica_id) REFERENCES grupo_caracteristicas(id)
 );
