@@ -2,15 +2,10 @@ package com.dev.mercadolivre.controllers.model;
 
 import com.dev.mercadolivre.model.CategoryModel;
 import com.dev.mercadolivre.model.ProdutoModel;
-import com.dev.mercadolivre.model.UserModel;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,6 +20,7 @@ public class ProdutoRequest {
     @Min(0)
     private Integer quantidadeDisponivel;
     @NotEmpty
+    @Size(min=3)
     private List<GrupoCaracteristica> caracteristicas;
     @Length(min=10, max=1000)
     private String descricao;

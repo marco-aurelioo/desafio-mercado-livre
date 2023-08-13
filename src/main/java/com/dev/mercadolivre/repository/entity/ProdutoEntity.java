@@ -39,6 +39,10 @@ public class ProdutoEntity {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @ElementCollection
+    @CollectionTable(name = "produto_images", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "images")
+    private List<String> images;
 
     public ProdutoEntity() {
     }
@@ -132,6 +136,14 @@ public class ProdutoEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     @PreUpdate
