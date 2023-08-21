@@ -2,6 +2,7 @@ package com.dev.mercadolivre.service;
 
 import com.dev.mercadolivre.model.ProdutoModel;
 import com.dev.mercadolivre.model.UserModel;
+import com.dev.mercadolivre.model.exceptions.ModelException;
 import com.dev.mercadolivre.repository.CategoryRepository;
 import com.dev.mercadolivre.repository.ProdutoRepository;
 import com.dev.mercadolivre.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -43,14 +45,14 @@ public class ProdutoService {
         return produtoEntity.toModel(categoryRepository);
     }
 
-    public void upload(MultipartFile[] file, UserDetails user, Integer produtoId) {
-        ProdutoEntity produtoEntity = produtoRepository.findById(produtoId).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    public void upload(MultipartFile[] file, UserDetails user, Integer produtoId) throws AuthenticationException {
+        ProdutoEntity produtoEntity = produtoRepository.findById(produtoId).orElseThrow(() -> new ModelException("Produto não encontrado"));
         if(produtoEntity.getUsuario().getUsername().equals(user.getUsername())){
             List<String> imgs = fileStorageService.uploadFile(produtoEntity.getId(), file);
             produtoEntity.setImages(imgs);
             produtoRepository.save(produtoEntity);
         }else {
-            throw new RuntimeException("Você não é o dono do produto.");
+            throw new AuthenticationException("Usuário não autorizado");
         }
     }
 

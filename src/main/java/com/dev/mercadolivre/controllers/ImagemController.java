@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.security.sasl.AuthenticationException;
 import javax.websocket.server.PathParam;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class ImagemController {
     @PostMapping("/produto/{id}/add-images")
     public ResponseEntity<Boolean> upload(@RequestBody MultipartFile[] file,
                                  @PathVariable("id") Integer produtoId,
-                                 @AuthenticationPrincipal UserDetails user) {
+                                 @AuthenticationPrincipal UserDetails user) throws AuthenticationException {
         produtoService.upload(file, user, produtoId);
         return ResponseEntity.ok(true);
     }

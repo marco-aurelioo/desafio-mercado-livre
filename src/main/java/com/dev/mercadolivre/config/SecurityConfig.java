@@ -61,7 +61,7 @@ public class SecurityConfig  {
                         "/auth/**").permitAll()
                     .anyRequest().authenticated();
 
-        httpSecurity.addFilter(new AuthenticationFilter(authenticationManager(authenticationConfiguration),  userRepository,      jwtUtils));
+        httpSecurity.addFilter(new AuthenticationFilter(authenticationManager(authenticationConfiguration),  userRepository,   passwordEncoder(),   jwtUtils));
         httpSecurity.addFilter(new AuthorizationFilter( authenticationManager(authenticationConfiguration),  userDetailsService , jwtUtils));
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return httpSecurity.build();

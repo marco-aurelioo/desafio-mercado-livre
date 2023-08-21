@@ -1,5 +1,6 @@
 package com.dev.mercadolivre.service;
 
+import com.dev.mercadolivre.model.exceptions.ModelException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public class FileStorageService {
 
     private String saveImage(Integer id, MultipartFile file){
         if (file.isEmpty()) {
-            throw new RuntimeException("Arquivo não pode ser vazio.");
+            throw new ModelException("Arquivo não pode ser vazio.");
         }
         String pathName = path+"/"+id+"_"+file.getOriginalFilename();
         Path destinationFile = Paths.get(pathName);
@@ -40,7 +41,7 @@ public class FileStorageService {
                     StandardCopyOption.REPLACE_EXISTING);
             return pathName;
         } catch (IOException e) {
-            throw new RuntimeException("Erro ao salvar arquivo: " + e.getMessage());
+            throw new ModelException("Erro ao salvar arquivo: " + e.getMessage());
         }
     }
 
