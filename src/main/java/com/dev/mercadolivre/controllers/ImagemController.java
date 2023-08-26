@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.sasl.AuthenticationException;
-import javax.websocket.server.PathParam;
 import java.util.logging.Logger;
 
 @RestController
