@@ -1,7 +1,6 @@
 package com.dev.mercadolivre.service;
 
 import com.dev.mercadolivre.model.ProdutoModel;
-import com.dev.mercadolivre.model.UserModel;
 import com.dev.mercadolivre.model.exceptions.ModelException;
 import com.dev.mercadolivre.repository.CategoryRepository;
 import com.dev.mercadolivre.repository.ProdutoRepository;

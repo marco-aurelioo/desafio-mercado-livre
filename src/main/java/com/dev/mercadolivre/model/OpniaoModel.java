@@ -1,7 +1,5 @@
 package com.dev.mercadolivre.model;
 
-
-import com.dev.mercadolivre.repository.ProdutoRepository;
 import com.dev.mercadolivre.repository.UserRepository;
 import com.dev.mercadolivre.repository.entity.OpniaoEntity;
 import com.dev.mercadolivre.repository.entity.ProdutoEntity;
