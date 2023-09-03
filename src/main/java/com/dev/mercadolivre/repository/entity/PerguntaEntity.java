@@ -89,7 +89,7 @@ public class PerguntaEntity {
                 this.titulo,
                 this.pergunta,
                 this.produto.getId(),
-                new UserModel(this.userOwner.getUsername()) );
+                new UserModel(this.userOwner.getUsername(),this.userOwner.getEmail()) );
     }
 
     @PreUpdate

@@ -25,6 +25,11 @@ public class UserModel {
     public UserModel(String userName) {
         this.username = userName;
     }
+
+    public UserModel(String userName, String email) {
+        this.username = userName;
+        this.email = email;
+    }
     public UserModel(String username, String password, String email, LocalDateTime createdAt, String role) {
         this.username = username;
         this.password = new BCryptPasswordEncoder().encode(password);
