@@ -2,7 +2,7 @@ package com.dev.mercadolivre.controllers;
 
 import com.dev.mercadolivre.controllers.model.PerguntaRequest;
 import com.dev.mercadolivre.model.PerguntaModel;
-import com.dev.mercadolivre.service.PerguntaService;
+import com.dev.mercadolivre.service.PerguntasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,9 +20,9 @@ import javax.validation.Valid;
 public class PerguntaController {
 
 
-    private PerguntaService perguntaService;
+    private PerguntasService perguntaService;
 
-    public PerguntaController(@Autowired PerguntaService perguntaService) {
+    public PerguntaController(@Autowired PerguntasService perguntaService) {
         this.perguntaService = perguntaService;
     }
 

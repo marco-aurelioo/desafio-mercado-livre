@@ -10,7 +10,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PerguntaService {
+public class PerguntasService {
+
 
     private PerguntaRepository perguntaRepository;
     private ProdutoRepository produtoRepository;
@@ -18,7 +19,7 @@ public class PerguntaService {
 
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public PerguntaService(
+    public PerguntasService(
             @Autowired PerguntaRepository perguntaRepository,
             @Autowired ProdutoRepository produtoRepository,
             @Autowired UserRepository usuarioRepository,
@@ -30,12 +31,12 @@ public class PerguntaService {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    public PerguntaModel createPergunta( PerguntaModel perguntaModel){
-         PerguntaModel pergunta = perguntaRepository.save(
-                perguntaModel.toEntity( produtoRepository, usuarioRepository))
+    public PerguntaModel createPergunta(PerguntaModel perguntaModel){
+        PerguntaModel pergunta = perguntaRepository.save(
+                        perguntaModel.toEntity( produtoRepository, usuarioRepository))
                 .toModel();
-         sendEmail(pergunta);
-         return pergunta;
+        sendEmail(pergunta);
+        return pergunta;
     }
 
     private void sendEmail(PerguntaModel pergunta) {
@@ -46,5 +47,6 @@ public class PerguntaService {
         );
         applicationEventPublisher.publishEvent(emailEventModel);
     }
+
 
 }
